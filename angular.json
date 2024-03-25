@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "dice-party:build:production"
+              "buildTarget": "dice-party:build:production"
             },
             "development": {
-              "browserTarget": "dice-party:build:development"
+              "buildTarget": "dice-party:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dice-party:build"
+            "buildTarget": "dice-party:build"
           }
         },
         "test": {
