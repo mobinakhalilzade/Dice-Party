@@ -3,6 +3,9 @@ import { PointsTable } from './core/const/point.const';
 import { IPointTable, ISection } from './core/interface/point.interface';
 import { RulesService } from './core/service/rules.service';
 import { IRandomDice } from './core/interface/dice.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { LogInComponent } from './components/log-in/log-in.component';
+import { UserService } from './core/service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +19,15 @@ export class AppComponent implements OnInit {
   roll = 3;
   selectedDiceIndices: IRandomDice[] = [];
 
-  constructor(private rulesService: RulesService) {}
+  constructor(
+    private rulesService: RulesService,
+    public dialog: MatDialog,
+    private userService: UserService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!this.userService.hasUserInfo()) this.openDialog();
+  }
 
   generateRandomNumbers() {
     this.roll--;
@@ -108,5 +117,14 @@ export class AppComponent implements OnInit {
       console.log('end of the game');
       return;
     }
+  }
+
+  hasLoggedIn() {}
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(LogInComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed', result);
+    });
   }
 }

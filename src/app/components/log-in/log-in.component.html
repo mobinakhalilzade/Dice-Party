@@ -1,0 +1,19 @@
+<div class="px-4 py-2">
+  <h2 mat-dialog-title>Welcome to Dice Party 🎲🎉</h2>
+  <mat-dialog-content>
+    <p class="mb-2">What's your name?</p>
+    <input
+      class="border border-gray-400 w-full rounded px-3 py-2 focus:border-gray-400"
+      placeholder="Name"
+      [(ngModel)]="name"
+    />
+  </mat-dialog-content>
+  <div class="flex justify-center gap-4 pb-2">
+    <button class="bg-red-400 text-base font-medium" (click)="onNoClick()">
+      Dismiss
+    </button>
+    <button class="bg-green text-base font-medium" (click)="onNameSubmit()">
+      Submit
+    </button>
+  </div>
+</div>
