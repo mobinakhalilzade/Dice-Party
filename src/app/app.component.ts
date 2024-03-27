@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PointsTable } from './core/const/point.const';
 import { IPointTable, ISection } from './core/interface/point.interface';
 import { RulesService } from './core/service/rules.service';
@@ -6,27 +6,31 @@ import { IRandomDice } from './core/interface/dice.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { UserService } from './core/service/user.service';
+import { PointService } from './core/service/point.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit,OnDestroy {
   pointsTable: IPointTable = PointsTable;
   randomNumbers: IRandomDice[] = [];
   round = 13;
   roll = 3;
   selectedDiceIndices: IRandomDice[] = [];
+  selectedPoint: ISection;
 
   constructor(
-    private rulesService: RulesService,
     public dialog: MatDialog,
-    private userService: UserService
+    private userService: UserService,
+    private rulesService: RulesService,
+    private pointService: PointService
   ) {}
 
   ngOnInit(): void {
     if (!this.userService.hasUserInfo()) this.openDialog();
+    this.pointService.initPointData()
   }
 
   generateRandomNumbers() {
@@ -110,6 +114,15 @@ export class AppComponent implements OnInit {
     });
   }
 
+  selectPoint(section: ISection) {
+    console.log(section);
+    if (section.isSelect) {
+      return;
+    } else {
+      this.selectedPoint = section;
+    }
+  }
+
   submitRound() {
     this.roll = 3;
     this.round--;
@@ -117,14 +130,21 @@ export class AppComponent implements OnInit {
       console.log('end of the game');
       return;
     }
-  }
+    console.log(this.selectedPoint);
 
-  hasLoggedIn() {}
+    this.pointService.setPoints(this.selectedPoint.point);
+    this.selectedPoint.isSelect = true;
+
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(LogInComponent);
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed', result);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.pointService.initPointData()
   }
 }

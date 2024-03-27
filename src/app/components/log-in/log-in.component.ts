@@ -30,6 +30,7 @@ export class LogInComponent {
     const user: IUser = {
       name: this.name,
       highestScore: 0,
+      currentScore: 0,
     };
     this.userService.setUserInfo(user);
     this.dialogRef.close();

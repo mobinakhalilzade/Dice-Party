@@ -9,4 +9,5 @@ export interface ISection {
   multiplier: number;
   point: null | number;
   image:string
+  isSelect:boolean
 }

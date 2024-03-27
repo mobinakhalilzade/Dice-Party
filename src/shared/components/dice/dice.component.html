@@ -1,37 +1,13 @@
-<!-- <div class="w-10 h-10 bg-white rounded-lg shadow-lg p-1">
-  @switch (dice.id) { @case (0) {
-  <div
-    class="items-center w-2 h-2 rounded-full"
-    [style.backgroundColor]="dice.color"
-  ></div>
-  } @case (1) {
-  <div class="flex justify-start">
-    <div
-      class="w-2 h-2 rounded-full"
-      [style.backgroundColor]="dice.color"
-    ></div>
-    <div class=""></div>
-  </div>
-  <div class="flex justify-end">
-    <div class="w-2 h-2 rounded-full bg-white"></div>
-    <div class=""></div>
-  </div>
-  <div class="flex justify-end">
-    <div class="w-2 h-2 rounded-full bg-white"></div>
-    <div class=""></div>
-  </div>
-  <div class="flex justify-end">
-    <div
-      class="w-2 h-2 rounded-full"
-      [style.backgroundColor]="dice.color"
-    ></div>
-    <div class=""></div>
-  </div>
-
-  } @case (2) { } @case (3) { } @case (4) { } @case (5) { } @case (6) { }
-  @default {
-  <h4 class="text-slate-500 font-semibold text-2xl text-center">
-    {{ dice.color }}
-  </h4>
-  } }
-</div> -->
+@switch (value) { @case (1) {
+<img width="60" height="60" src="../../../assets/One.png" alt="One" />
+} @case (2) {
+<img src="../../../assets/Two.png" alt="Two" />
+} @case (3) {
+<img src="../../../assets/Three.png" alt="Three" />
+} @case (4) {
+<img src="../../../assets/Four.png" alt="Four" />
+} @case (5) {
+<img src="../../../assets/Five.png" alt="Five" />
+} @case (6) {
+<img src="../../../assets/One.png" alt="One" />
+} @default { } }

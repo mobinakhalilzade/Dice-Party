@@ -4,7 +4,10 @@
     <div class="flex bg-secondary text-white">
       <ul>
         @for (upperSec of pointsTable.upperSection; track $index) {
-        <li class="p-2 border border-red-200 flex justify-between items-center">
+        <li
+          class="p-2 border border-red-200 flex justify-between items-center"
+          (click)="selectPoint(upperSec)"
+        >
           @if (upperSec.id != 6) {
           <img
             [src]="upperSec.image"
@@ -25,12 +28,7 @@
             </div>
           </div>
           }
-          <div class="flex justify-end gap-1">
-            <span
-              class="flex items-center justify-center w-10 h-10 bg-transparent p-1 text-sm"
-              [ngClass]="upperSec.point ? 'text-yellow' : 'text-slate-500'"
-              >{{ upperSec.point }}</span
-            >
+          <div class="flex justify-end pl-1">
             <span
               class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium"
               [ngClass]="upperSec.point ? 'text-green' : 'text-slate-500'"
@@ -53,12 +51,7 @@
           <h4>
             {{ lowerSec.name }}
           </h4>
-          <div class="flex justify-end gap-1">
-            <span
-              class="flex items-center justify-center w-10 h-10 bg-transparent p-1 text-sm"
-              [ngClass]="lowerSec.point ? 'text-yellow' : 'text-slate-500'"
-              >{{ lowerSec.point }}</span
-            >
+          <div class="flex justify-end pl-1">
             <span
               class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium"
               [ngClass]="lowerSec.point ? 'text-green' : 'text-slate-500'"
@@ -75,11 +68,11 @@
       @for (randomNumber of randomNumbers; track $index) {
       <button
         type="button"
-        class="w-10 h-10 bg-white rounded-lg shadow-lg p-1 text-center text-black"
+        class="p-0"
         [ngClass]="{ 'border-2 border-yellow': randomNumber.isSelect }"
         (click)="randomNumber.isSelect = !randomNumber.isSelect"
       >
-        {{ randomNumber.value }}
+        <app-dice [value]="randomNumber.value"></app-dice>
       </button>
       }
     </div>
@@ -92,7 +85,7 @@
       [disabled]="roll === 0"
       (click)="generateRandomNumbers()"
     >
-      Roll {{ roll }}
+      Roll {{ "(" + roll + ")" }}
     </button>
     <button type="button" class="bg-green" (click)="submitRound()">Play</button>
   </div>
