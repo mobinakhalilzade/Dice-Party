@@ -60,21 +60,26 @@ export class AppComponent implements OnInit {
     arr: IRandomDice[],
     lowerSection: ISection[]
   ) {
-    if (this.rulesService.hasThreeOfAKind(arr)) {
-      lowerSection[0].point = this.rulesService.calculateArraySum(arr);
-    } else if (this.rulesService.hasFourOfAKind(arr)) {
-      lowerSection[1].point = this.rulesService.calculateArraySum(arr);
-    } else if (this.rulesService.hasFullHouse) {
-      lowerSection[2].point = lowerSection[2].multiplier;
-    } else if (this.rulesService.hasSmallStraight) {
-      lowerSection[3].point = lowerSection[3].multiplier;
-    } else if (this.rulesService.hasLargeStraight) {
-      lowerSection[4].point = lowerSection[4].multiplier;
-    } else if (this.rulesService.hasFiveOfAKind) {
-      lowerSection[5].point = lowerSection[5].multiplier;
-    } else {
-      lowerSection[6].point = this.rulesService.calculateArraySum(arr);
-    }
+    this.rulesService.hasThreeOfAKind(arr)
+      ? (lowerSection[0].point = this.rulesService.calculateArraySum(arr))
+      : (lowerSection[0].point = 0);
+    this.rulesService.hasFourOfAKind(arr)
+      ? (lowerSection[1].point = this.rulesService.calculateArraySum(arr))
+      : (lowerSection[1].point = 0);
+    this.rulesService.hasFullHouse(arr)
+      ? (lowerSection[2].point = lowerSection[2].multiplier)
+      : (lowerSection[2].point = 0);
+    this.rulesService.hasSmallStraight(arr)
+      ? (lowerSection[3].point = lowerSection[3].multiplier)
+      : (lowerSection[3].point = 0);
+    this.rulesService.hasLargeStraight(arr)
+      ? (lowerSection[4].point = lowerSection[4].multiplier)
+      : (lowerSection[4].point = 0);
+    this.rulesService.hasFiveOfAKind(arr)
+      ? (lowerSection[5].point =
+          this.rulesService.calculateFiveOfAKindPoints(0))
+      : (lowerSection[5].point = 0);
+    lowerSection[6].point = this.rulesService.calculateArraySum(arr);
   }
 
   getPossiblePointsForUpperSection(

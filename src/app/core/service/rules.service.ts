@@ -13,93 +13,98 @@ export class RulesService {
   }
 
   calculateTotalUpperSectionPoints() {}
-  calculateTotalLowerSectionPoints() {
-
-  }
+  calculateTotalLowerSectionPoints() {}
 
   hasBonus(): boolean {
     if (this.totalUpperSectionPoints > 62) {
-      this.totalUpperSectionPoints =+35;
+      this.totalUpperSectionPoints = +35;
       return true;
     } else {
       return false;
     }
   }
 
-  hasThreeOfAKind(arr:IRandomDice[]) {
-    const countMap: { [key: number]: number } = {};
-
-    for (const num of arr) {
-      countMap[num.value] = (countMap[num.value] || 0) + 1;
-    }
-
-    return Object.values(countMap).some((count) => count >= 3);
+  hasThreeOfAKind(arr: IRandomDice[]) {
+    const objectCounts = {};
+    arr.forEach((item) => {
+      objectCounts[item.value] = (objectCounts[item.value] || 0) + 1;
+    });
+    return Object.values(objectCounts).some((count: any) => count >= 3);
   }
 
-  hasFourOfAKind(arr:IRandomDice[]) {
-    const countMap: { [key: number]: number } = {};
-
-    for (const num of arr) {
-      countMap[num.value] = (countMap[num.value] || 0) + 1;
-      // console.log(countMap);
-    }
-
-    return Object.values(countMap).some((count) => count >= 4);
+  hasFourOfAKind(arr: IRandomDice[]) {
+    const objectCounts = {};
+    arr.forEach((item) => {
+      objectCounts[item.value] = (objectCounts[item.value] || 0) + 1;
+    });
+    return Object.values(objectCounts).some((count: any) => count >= 4);
   }
 
-  calculateArraySum(arr:IRandomDice[]) {
+  calculateArraySum(arr: IRandomDice[]) {
     return arr.reduce((sum, num) => sum + num.value, 0);
   }
 
-  hasFullHouse(arr:IRandomDice[]): boolean {
-    const countMap: { [key: number]: number } = {};
+  hasFullHouse(arr: IRandomDice[]): boolean {
+    const objectCounts = {};
 
-    for (const num of arr) {
-      countMap[num.value] = (countMap[num.value] || 0) + 1;
-      console.log(countMap);
-
-    }
+    arr.forEach((item) => {
+      objectCounts[item.value] = (objectCounts[item.value] || 0) + 1;
+    });
+    console.log(objectCounts);
 
     let hasThree = false;
     let hasTwo = false;
 
-    for (const count of Object.values(countMap)) {
+    Object.values(objectCounts).forEach((count) => {
       if (count === 3) {
         hasThree = true;
       } else if (count === 2) {
         hasTwo = true;
       }
-    }
+    });
 
     return hasThree && hasTwo;
   }
 
-  hasSmallStraight(arr:IRandomDice[]): boolean {
-    let countInOrder = 0;
+  hasSmallStraight(arr: IRandomDice[]): boolean {
+    const sortedArr = arr.slice().sort((a, b) => a.value - b.value);
+    let count = 1;
+    let maxCount = 1;
 
-    for (let i = 0; i < arr.length - 1; i++) {
-      if (arr[i].value + 1 === arr[i + 1].value) {
-        countInOrder++;
+    for (let i = 1; i < sortedArr.length; i++) {
+      if (sortedArr[i].value === sortedArr[i - 1].value + 1) {
+        count++;
+        maxCount = Math.max(maxCount, count);
+      } else {
+        count = 1;
       }
     }
 
-    return countInOrder >= 3;
+    return maxCount >= 4;
   }
 
-  hasLargeStraight(arr:IRandomDice[]): boolean {
-    for (let i = 0; i < arr.length - 1; i++) {
-      if (arr[i].value + 1 !== arr[i + 1].value) {
-        return false;
+  hasLargeStraight(arr: IRandomDice[]): boolean {
+    const sortedArr = arr.slice().sort((a, b) => a.value - b.value);
+
+    let count = 1;
+    let maxCount = 1;
+
+    for (let i = 1; i < sortedArr.length; i++) {
+      if (sortedArr[i].value === sortedArr[i - 1].value + 1) {
+        count++;
+        maxCount = Math.max(maxCount, count);
+      } else {
+        count = 1;
       }
     }
 
-    return true;
+    return maxCount === 5;
   }
 
   hasFiveOfAKind(arr: IRandomDice[]): boolean {
-    const firstNumber = arr[0];
+    const firstNumber = arr[0].value;
     for (let i = 1; i < arr.length; i++) {
-      if (arr[i] !== firstNumber) {
+      if (arr[i].value !== firstNumber) {
         return false;
       }
     }
@@ -115,6 +120,6 @@ export class RulesService {
         return currentPoint + 100;
       }
     }
-    return currentPoint
+    return currentPoint;
   }
 }
