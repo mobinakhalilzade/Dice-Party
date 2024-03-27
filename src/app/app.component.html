@@ -12,12 +12,14 @@
           </h4>
           <div class="flex justify-end gap-1">
             <span
-              class="flex items-center justify-center w-10 h-10 bg-transparent p-1 text-sm text-yellow"
-              >10</span
+              class="flex items-center justify-center w-10 h-10 bg-transparent p-1 text-sm"
+              [ngClass]="upperSec.point ? 'text-yellow' : 'text-slate-500'"
+              >{{ upperSec.point }}</span
             >
             <span
-              class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium text-green"
-              >24</span
+              class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium"
+              [ngClass]="upperSec.point ? 'text-green' : 'text-slate-500'"
+              >{{ upperSec.point }}</span
             >
           </div>
         </li>
@@ -35,12 +37,14 @@
           </h4>
           <div class="flex justify-end gap-1">
             <span
-              class="flex items-center justify-center w-10 h-10 bg-transparent p-1 text-sm text-yellow"
-              >10</span
+              class="flex items-center justify-center w-10 h-10 bg-transparent p-1 text-sm"
+              [ngClass]="lowerSec.point ? 'text-yellow' : 'text-slate-500'"
+              >{{ lowerSec.point }}</span
             >
             <span
-              class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium text-green"
-              >24</span
+              class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium"
+              [ngClass]="lowerSec.point ? 'text-green' : 'text-slate-500'"
+              >{{ lowerSec.point }}</span
             >
           </div>
         </li>
@@ -51,15 +55,25 @@
   <div class="flex justify-center h-16">
     <div class="flex justify-between">
       @for (randomNumber of randomNumbers; track $index) {
-      <button type="button" class="w-10 h-10 bg-white rounded-lg shadow-lg p-1 text-center text-black" (click)="selectDice(randomNumber)">
-        {{ randomNumber }}
+      <button
+        type="button"
+        class="w-10 h-10 bg-white rounded-lg shadow-lg p-1 text-center text-black"
+        [ngClass]="{ 'border-2 border-yellow': randomNumber.isSelect }"
+        (click)="randomNumber.isSelect = !randomNumber.isSelect"
+      >
+        {{ randomNumber.value }}
       </button>
       }
     </div>
   </div>
 
   <div class="flex justify-center gap-5">
-    <button type="button" class="bg-blue" (click)="generateRandomNumbers()">
+    <button
+      type="button"
+      class="bg-blue"
+      [disabled]="roll === 0"
+      (click)="generateRandomNumbers()"
+    >
       Roll {{ roll }}
     </button>
     <button type="button" class="bg-green" (click)="submitRound()">Play</button>

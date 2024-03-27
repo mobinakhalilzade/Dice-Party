@@ -13,6 +13,6 @@ body,
 }
 
 button {
-  @apply px-10 py-3 text-white font-semibold text-xl rounded-md;
+  @apply px-10 py-3 text-white font-semibold text-xl rounded-md disabled:opacity-25;
 }
 

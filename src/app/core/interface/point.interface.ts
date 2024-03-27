@@ -8,4 +8,5 @@ export interface ISection {
   name: string;
   multiplier: number;
   color: string;
+  point: null | number;
 }

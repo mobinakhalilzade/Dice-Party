@@ -3,3 +3,8 @@ export interface IDice {
   value: number;
   color: string;
 }
+
+export interface IRandomDice {
+  value: number;
+  isSelect: boolean;
+}
