@@ -8,7 +8,8 @@ export const PointsTable: IPointTable = {
       multiplier: 1,
       image: '../../../assets/One.png',
       point: null,
-      isSelect:false
+      possiblePoint: null,
+      isSelect: false,
     },
     {
       id: 1,
@@ -16,7 +17,8 @@ export const PointsTable: IPointTable = {
       multiplier: 2,
       image: '../../../assets/Two.png',
       point: null,
-      isSelect:false
+      possiblePoint: null,
+      isSelect: false,
     },
     {
       id: 2,
@@ -24,7 +26,8 @@ export const PointsTable: IPointTable = {
       multiplier: 3,
       image: '../../../assets/Three.png',
       point: null,
-      isSelect:false
+      possiblePoint: null,
+      isSelect: false,
     },
     {
       id: 3,
@@ -32,7 +35,8 @@ export const PointsTable: IPointTable = {
       multiplier: 4,
       image: '../../../assets/Four.png',
       point: null,
-      isSelect:false
+      possiblePoint: null,
+      isSelect: false,
     },
     {
       id: 4,
@@ -40,7 +44,8 @@ export const PointsTable: IPointTable = {
       multiplier: 5,
       image: '../../../assets/Five.png',
       point: null,
-      isSelect:false
+      possiblePoint: null,
+      isSelect: false,
     },
     {
       id: 5,
@@ -48,9 +53,18 @@ export const PointsTable: IPointTable = {
       multiplier: 6,
       image: '../../../assets/Six.png',
       point: null,
-      isSelect:false
+      possiblePoint: null,
+      isSelect: false,
     },
-    { id: 6, name: 'Bonus', multiplier: 62, image: '', point: null,isSelect:false },
+    {
+      id: 6,
+      name: 'Bonus',
+      multiplier: 62,
+      image: '',
+      point: null,
+      possiblePoint: null,
+      isSelect: false,
+    },
   ],
   lowerSection: [
     {
@@ -59,7 +73,8 @@ export const PointsTable: IPointTable = {
       image: '../../../assets/3X.png',
       multiplier: 1,
       point: null,
-      isSelect:false
+      possiblePoint: null,
+      isSelect: false,
     },
     {
       id: 8,
@@ -67,7 +82,8 @@ export const PointsTable: IPointTable = {
       image: '../../../assets/4X.png',
       multiplier: 1,
       point: null,
-      isSelect:false
+      possiblePoint: null,
+      isSelect: false,
     },
     {
       id: 9,
@@ -75,7 +91,8 @@ export const PointsTable: IPointTable = {
       image: '../../../assets/FH.png',
       multiplier: 25,
       point: null,
-      isSelect:false
+      possiblePoint: null,
+      isSelect: false,
     },
     {
       id: 10,
@@ -83,7 +100,8 @@ export const PointsTable: IPointTable = {
       image: '../../../assets/SM.png',
       multiplier: 30,
       point: null,
-      isSelect:false
+      possiblePoint: null,
+      isSelect: false,
     },
     {
       id: 11,
@@ -91,23 +109,26 @@ export const PointsTable: IPointTable = {
       image: '../../../assets/LG.png',
       multiplier: 40,
       point: null,
-      isSelect:false
+      possiblePoint: null,
+      isSelect: false,
     },
     {
       id: 12,
       name: '5 of a Kind',
       image: '../../../assets/5X.png',
       multiplier: 50,
+      possiblePoint: null,
       point: null,
-      isSelect:false
+      isSelect: false,
     },
     {
       id: 13,
       name: 'Chance',
       image: '../../../assets/CH.png',
       multiplier: 1,
+      possiblePoint: null,
       point: null,
-      isSelect:false
+      isSelect: false,
     },
   ],
 };

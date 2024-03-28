@@ -1,14 +1,14 @@
-<div class="flex justify-center bg-dark py-3 mb-2 shadow gap-10">
+<div class="flex justify-center bg-dark py-3 mb-2 shadow gap-10 items-center">
   <div>
-    <h1 class="text-yellow text-lg font-medium">Dice Party 🎲🎉</h1>
+    <h1 class="text-yellow !mb-0">Dice Party 🎲🎉</h1>
   </div>
   <div class="flex justify-between text-white gap-5">
     @if (anonymousUser) {
     <h5>Anonymous</h5>
     }@else {
-    <h5 class="capitalize">{{ userInfo?.name }}</h5>
-    <h2>Current Score: {{ userInfo?.currentScore }}</h2>
-    <h2>Best Score: {{ userInfo?.highestScore }}</h2>
+    <h3 class="capitalize !mb-0">{{ userInfo?.name }}</h3>
+    <h3 class="!mb-0">Current Score: {{ userInfo?.currentScore }}</h3>
+    <h3 class="!mb-0">Best Score: {{ userInfo?.highestScore }}</h3>
     }
   </div>
 </div>

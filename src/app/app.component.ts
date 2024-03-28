@@ -3,9 +3,6 @@ import { PointsTable } from './core/const/point.const';
 import { IPointTable, ISection } from './core/interface/point.interface';
 import { RulesService } from './core/service/rules.service';
 import { IRandomDice } from './core/interface/dice.interface';
-import { MatDialog } from '@angular/material/dialog';
-import { LogInComponent } from './components/log-in/log-in.component';
-import { UserService } from './core/service/user.service';
 import { PointService } from './core/service/point.service';
 
 @Component({
@@ -22,14 +19,11 @@ export class AppComponent implements OnInit,OnDestroy {
   selectedPoint: ISection;
 
   constructor(
-    public dialog: MatDialog,
-    private userService: UserService,
     private rulesService: RulesService,
     private pointService: PointService
   ) {}
 
   ngOnInit(): void {
-    if (!this.userService.hasUserInfo()) this.openDialog();
     this.pointService.initPointData()
   }
 
@@ -46,6 +40,8 @@ export class AppComponent implements OnInit,OnDestroy {
 
       for (let i = 0; i < unselectedDiceCount; i++) {
         const randomNumber = Math.floor(Math.random() * 6) + 1;
+        console.log(randomNumber);
+
         this.randomNumbers.push({ value: randomNumber, isSelect: false });
         console.log(this.randomNumbers);
         this.getPossiblePointsForUpperSection(
@@ -137,12 +133,6 @@ export class AppComponent implements OnInit,OnDestroy {
 
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(LogInComponent);
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed', result);
-    });
-  }
 
   ngOnDestroy(): void {
     this.pointService.initPointData()

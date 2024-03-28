@@ -8,6 +8,7 @@ export interface ISection {
   name: string;
   multiplier: number;
   point: null | number;
+  possiblePoint: null | number;
   image:string
   isSelect:boolean
 }

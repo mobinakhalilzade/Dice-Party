@@ -49,14 +49,3 @@ body,
 button {
   @apply px-10 py-3 text-white font-semibold text-xl rounded-md disabled:opacity-25;
 }
-
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}

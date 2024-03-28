@@ -33,7 +33,7 @@ export class LogInComponent {
       currentScore: 0,
     };
     this.userService.setUserInfo(user);
-    this.dialogRef.close();
+    this.dialogRef.close(user)
   }
 
   onNoClick(): void {

@@ -15,13 +15,13 @@
             height="50"
             [alt]="upperSec.name"
           />
-          <h4>
+          <h4 class="!mb-0">
             {{ upperSec.name }}
           </h4>
           } @else{
           <div class="pl-1">
             <div>
-              <h4>
+              <h4 class="!mb-0">
                 {{ upperSec.name }}
               </h4>
               <small>If upper is over 62</small>
@@ -30,7 +30,7 @@
           }
           <div class="flex justify-end pl-1">
             <span
-              class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium"
+              class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium ml-1"
               [ngClass]="upperSec.point ? 'text-green' : 'text-slate-500'"
               >{{ upperSec.point }}</span
             >
@@ -48,12 +48,12 @@
             [alt]="lowerSec.name"
           />
 
-          <h4>
+          <h4 class="!mb-0">
             {{ lowerSec.name }}
           </h4>
           <div class="flex justify-end pl-1">
             <span
-              class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium"
+              class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium ml-1"
               [ngClass]="lowerSec.point ? 'text-green' : 'text-slate-500'"
               >{{ lowerSec.point }}</span
             >
