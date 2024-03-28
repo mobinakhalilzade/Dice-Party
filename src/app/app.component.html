@@ -1,14 +1,15 @@
-<main class="h-screen bg-primary">
+<main>
   <app-profile></app-profile>
   <div class="flex justify-center">
     <div class="flex bg-secondary text-white">
       <ul>
         @for (upperSec of pointsTable.upperSection; track $index) {
         <li
-          class="p-2 border border-red-200 flex justify-between items-center"
-          (click)="selectPoint(upperSec)"
+          class="px-2 py-1 border border-red-200 flex justify-between items-center cursor-pointer"
+          [ngClass]="{ 'border-2 border-green': upperSec.isSelect }"
+          [ngClass]="{ 'bg-dark cursor-not-allowed': upperSec.submittedPoint }"
+          (click)="selectUpperSectionPoint(upperSec)"
         >
-          @if (upperSec.id != 6) {
           <img
             [src]="upperSec.image"
             width="50"
@@ -18,29 +19,34 @@
           <h4 class="!mb-0">
             {{ upperSec.name }}
           </h4>
-          } @else{
-          <div class="pl-1">
-            <div>
-              <h4 class="!mb-0">
-                {{ upperSec.name }}
-              </h4>
-              <small>If upper is over 62</small>
-            </div>
-          </div>
-          }
           <div class="flex justify-end pl-1">
+            @if (upperSec.submittedPoint) {
             <span
-              class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium ml-1"
-              [ngClass]="upperSec.point ? 'text-green' : 'text-slate-500'"
+              class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium ml-1 text-green"
+              >{{ upperSec.submittedPoint }}</span
+            >
+            }@else {
+            <span
+              class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium ml-1 text-slate-500"
               >{{ upperSec.point }}</span
             >
+            }
           </div>
         </li>
         }
+        <div class="flex justify-between items-center bg-dark px-3 py-1">
+          <small>Total</small>
+          <small>{{ getSectionPointTotal(pointsTable.upperSection) }}</small>
+        </div>
       </ul>
       <ul>
         @for (lowerSec of pointsTable.lowerSection; track $index) {
-        <li class="p-2 border border-red-200 flex justify-between items-center">
+        <li
+          class="px-2 py-1 border border-red-200 flex justify-between items-center cursor-pointer"
+          [ngClass]="{ 'border-2 border-green': lowerSec.isSelect }"
+          [ngClass]="{ 'bg-dark cursor-not-allowed': lowerSec.submittedPoint }"
+          (click)="selectLowerSectionPoint(lowerSec)"
+        >
           <img
             [src]="lowerSec.image"
             width="50"
@@ -52,14 +58,24 @@
             {{ lowerSec.name }}
           </h4>
           <div class="flex justify-end pl-1">
+            @if (lowerSec.submittedPoint) {
             <span
-              class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium ml-1"
-              [ngClass]="lowerSec.point ? 'text-green' : 'text-slate-500'"
+              class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium ml-1 text-green"
+              >{{ lowerSec.submittedPoint }}</span
+            >
+            }@else {
+            <span
+              class="flex items-center justify-center w-10 h-10 bg-dark rounded-lg shadow-lg p-1 text-sm font-medium ml-1 text-slate-500"
               >{{ lowerSec.point }}</span
             >
+            }
           </div>
         </li>
         }
+        <div class="flex justify-between items-center bg-dark px-3 py-1">
+          <small>Total</small>
+          <small>{{ getSectionPointTotal(pointsTable.lowerSection) }}</small>
+        </div>
       </ul>
     </div>
   </div>
@@ -88,5 +104,8 @@
       Roll {{ "(" + roll + ")" }}
     </button>
     <button type="button" class="bg-green" (click)="submitRound()">Play</button>
+  </div>
+  <div class="flex justify-center mt-2">
+    <h4 class="text-white">{{ round }} round left</h4>
   </div>
 </main>

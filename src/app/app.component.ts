@@ -4,27 +4,30 @@ import { IPointTable, ISection } from './core/interface/point.interface';
 import { RulesService } from './core/service/rules.service';
 import { IRandomDice } from './core/interface/dice.interface';
 import { PointService } from './core/service/point.service';
+import { ResultComponent } from './components/result/result.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit,OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   pointsTable: IPointTable = PointsTable;
   randomNumbers: IRandomDice[] = [];
   round = 13;
   roll = 3;
   selectedDiceIndices: IRandomDice[] = [];
-  selectedPoint: ISection;
+  resetRound = false;
 
   constructor(
+    public dialog: MatDialog,
     private rulesService: RulesService,
     private pointService: PointService
   ) {}
 
   ngOnInit(): void {
-    this.pointService.initPointData()
+    this.pointService.initPointData();
   }
 
   generateRandomNumbers() {
@@ -110,31 +113,95 @@ export class AppComponent implements OnInit,OnDestroy {
     });
   }
 
-  selectPoint(section: ISection) {
-    console.log(section);
-    if (section.isSelect) {
+  selectUpperSectionPoint(upperSection: ISection) {
+    if (upperSection.submittedPoint) {
       return;
-    } else {
-      this.selectedPoint = section;
     }
+    this.pointsTable.lowerSection.forEach((ls) => {
+      ls.isSelect = false;
+    });
+    this.pointsTable.upperSection.forEach((sec) => {
+      sec.isSelect = sec.id === upperSection.id;
+    });
+
+    console.log(upperSection);
+  }
+
+  selectLowerSectionPoint(lowerSec: ISection) {
+    if (lowerSec.submittedPoint) {
+      return;
+    }
+    this.pointsTable.upperSection.forEach((us) => {
+      us.isSelect = false;
+    });
+    this.pointsTable.lowerSection.forEach((sec) => {
+      sec.isSelect = sec.id === lowerSec.id;
+    });
+
+    console.log(lowerSec);
   }
 
   submitRound() {
+    this.randomNumbers = [];
     this.roll = 3;
     this.round--;
     if (this.round === 0) {
-      console.log('end of the game');
+      this.openResultDialog();
       return;
     }
-    console.log(this.selectedPoint);
 
-    this.pointService.setPoints(this.selectedPoint.point);
-    this.selectedPoint.isSelect = true;
+    const selectedUpperSectionPoint = this.pointsTable.upperSection.find(
+      (upSec) => upSec.isSelect && !upSec.submittedPoint
+    );
 
+    const selectedLowerSectionPoint = this.pointsTable.lowerSection.find(
+      (loSec) => loSec.isSelect && !loSec.submittedPoint
+    );
+
+    if (selectedUpperSectionPoint) {
+      selectedUpperSectionPoint.submittedPoint =
+        selectedUpperSectionPoint.point;
+      this.pointService.setPoints(selectedUpperSectionPoint.submittedPoint);
+    }
+
+    if (selectedLowerSectionPoint) {
+      selectedLowerSectionPoint.submittedPoint =
+        selectedLowerSectionPoint.point;
+      this.pointService.setPoints(selectedLowerSectionPoint.submittedPoint);
+    }
+
+    this.pointsTable.upperSection.forEach((upSec) => {
+      if (!upSec.isSelect) {
+        upSec.point = null;
+      }
+    });
+
+    this.pointsTable.lowerSection.forEach((loSec) => {
+      if (!loSec.isSelect) {
+        loSec.point = null;
+      }
+    });
   }
 
+  getSectionPointTotal(section: ISection[]): number {
+    return section.reduce(
+      (accumulator, currentValue) => accumulator + currentValue.submittedPoint,
+      0
+    );
+  }
 
   ngOnDestroy(): void {
-    this.pointService.initPointData()
+    this.pointService.initPointData();
+  }
+
+  openResultDialog(): void {
+    const dialogRef = this.dialog.open(ResultComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result='newGame') {
+        this.round = 13
+        this.roll = 3
+        this.randomNumbers = []
+      }
+    });
   }
 }

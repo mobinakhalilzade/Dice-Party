@@ -12,9 +12,6 @@ export class RulesService {
     return multiplier * quantity;
   }
 
-  calculateTotalUpperSectionPoints() {}
-  calculateTotalLowerSectionPoints() {}
-
   hasBonus(): boolean {
     if (this.totalUpperSectionPoints > 62) {
       this.totalUpperSectionPoints = +35;

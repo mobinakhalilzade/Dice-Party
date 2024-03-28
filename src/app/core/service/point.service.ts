@@ -13,27 +13,25 @@ export class PointService {
   ) {}
 
   initPointData() {
-    const points = [];
+    const points = 0;
     this.localStorageService.setData('points', points);
   }
 
-  setPoints(points) {
-    this.localStorageService.setData('points', points);
-    let userInfo = this.userService.getUserInfo();
-    console.log(points);
+  setPoints(point) {
+    let currentPoint = this.getPoints();
+    let newPoint = currentPoint + point;
+    this.localStorageService.setData('points', newPoint);
+    console.log(newPoint);
 
-    userInfo.currentScore = points.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0
-    );
-    this.userService.setUserInfo(userInfo);
+    // let userInfo = this.userService.getUserInfo();
+    // userInfo.currentScore = points.reduce(
+    //   (accumulator, currentValue) => accumulator + currentValue,
+    //   0
+    // );
+    // this.userService.setUserInfo(userInfo);
   }
 
   getPoints(): number {
-    let points = this.localStorageService.getData('points');
-    return points.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0
-    );
+    return this.localStorageService.getData('points');
   }
 }
